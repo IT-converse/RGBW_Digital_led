@@ -4,8 +4,8 @@ import time
 import board
 import neopixel
 
-pixel_pin = board.A1
-num_pixels = 8
+pixel_pin = board.D18
+num_pixels = 60
 
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=False,
                            pixel_order=(1, 0, 2, 3))
@@ -32,6 +32,19 @@ def color_chase(color, wait):
         pixels.show()
     time.sleep(0.5)
 
+def double_color_chase(color1, color2, wait):
+    for i in range(num_pixels):
+        pixels[i] = color1
+        pixels[i-10] = color2
+        pixels[i-20] = color1
+        pixels[i-30] = color2
+        pixels[i-40] = color1
+        pixels[i-40] = color2
+        pixels[i-60] = color1
+        time.sleep(wait)
+        pixels.show()
+    time.sleep(0.5)
+
 
 def rainbow_cycle(wait):
     for j in range(255):
@@ -50,22 +63,23 @@ BLUE = (0, 0, 255, 0)
 PURPLE = (180, 0, 255, 0)
 
 while True:
-    pixels.fill(RED)
-    pixels.show()
-    # Increase or decrease to change the speed of the solid color change.
-    time.sleep(1)
-    pixels.fill(GREEN)
-    pixels.show()
-    time.sleep(1)
-    pixels.fill(BLUE)
-    pixels.show()
-    time.sleep(1)
+    # pixels.fill(RED)
+    # pixels.show()
+    # # Increase or decrease to change the speed of the solid color change.
+    # time.sleep(1)
+    # pixels.fill(GREEN)
+    # pixels.show()
+    # time.sleep(1)
+    # pixels.fill(BLUE)
+    # pixels.show()
+    # time.sleep(1)
 
-    color_chase(RED, 0.1)  # Increase the number to slow down the color chase
-    color_chase(YELLOW, 0.1)
-    color_chase(GREEN, 0.1)
-    color_chase(CYAN, 0.1)
-    color_chase(BLUE, 0.1)
-    color_chase(PURPLE, 0.1)
+    double_color_chase(CYAN, PURPLE, 0.1)
+    # color_chase(RED, 0.1)  # Increase the number to slow down the color chase
+    # color_chase(YELLOW, 0.1)
+    # color_chase(GREEN, 0.1)
+    # color_chase(CYAN, 0.1)
+    # color_chase(BLUE, 0.1)
+    # color_chase(PURPLE, 0.1)
 
-    rainbow_cycle(0)  # Increase the number to slow down the rainbow
+    # rainbow_cycle(0)  # Increase the number to slow down the rainbow
